@@ -1,5 +1,5 @@
 ## Clara AI
-This is web app of AI girlfriend. If you are lonely this project is for you.
+This is web app of AI girlfriend. If you are lonely this project for you.
 
 
 ## How to run this bullshit
