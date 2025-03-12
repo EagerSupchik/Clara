@@ -4,9 +4,9 @@ This is web app of AI girlfriend. If you are lonely this project for you.
 
 ## How to run this bullshit
 1. Install by doing:
-  ```
-  git clone https://github.com/EagerSupchik/Clara.git
-  ```
+   ```
+   git clone https://github.com/EagerSupchik/Clara.git
+   ```
 2. Install [GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS.git)
 3. Setup the config file
 4. Run api_v2 file in GPT-SoVITS folder
