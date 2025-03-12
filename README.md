@@ -19,7 +19,7 @@ This is web app of AI girlfriend. If you are lonely this project for you.
    ```
 7. Done
 
-## How to create system prompt properly
+## How to create the system prompt properly
 Ask the chat model to put TONE in answers. 
 ```
 For example, if you feel happy, the final line should be:
