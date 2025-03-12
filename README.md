@@ -20,11 +20,12 @@ This is web app of AI girlfriend. If you are lonely this project for you.
 7. Done
 
 ## How to create system prompt properly
-Ask the chat model to put TONE: <tone> in answers. 
+Ask the chat model to put TONE in answers. 
 ```
 For example, if you feel happy, the final line should be:
 TONE: happy
 ```
+
 ## Credits
 This project is powered by:
 1. [Openrouter](https://openrouter.ai/), model [gemini-2.0](https://openrouter.ai/google/gemini-2.0-flash-lite-preview-02-05:free) (cuz i'm broke)
