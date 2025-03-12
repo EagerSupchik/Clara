@@ -9,12 +9,15 @@ This is web app of AI girlfriend. If you are lonely this project for you.
    ```
 2. Install [GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS.git)
 3. Setup the config file
-4. Run api_v2 file in GPT-SoVITS folder
-5. Run the application:
+4. Run GPT-SoVITS API by doing:
+   ```
+   python api_v2.py -a 127.0.0.1 -p 9880 -c GPT_SoVITS/configs/tts_infer.yaml
+   ```
+6. Run the application:
    ```
    python app.py
    ```
-6. Done
+7. Done
 
 ## Credits
 This project is powered by:
