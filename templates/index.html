@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clara AI Chat</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+      background: url("static/happy.jpeg") no-repeat center center/cover;
+    }
+
+    #bottomContainer {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    #aiText {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    #userInputContainer {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    #userInput {
+      flex-grow: 1;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    #askButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="bottomContainer">
+    <div id="aiText">Clara is waiting for your question</div>
+    <div id="userInputContainer">
+      <input type="text" id="userInput" placeholder="Your input..." />
+      <button id="askButton">Send</button>
+    </div>
+  </div>
+
+  <audio id="audioPlayer" src="" style="display:none;"></audio>
+
+  <script>
+    function sendRequest() {
+      const userInputField = document.getElementById('userInput');
+      const askButton = document.getElementById('askButton');
+      const userInputValue = userInputField.value.trim();
+
+      if (!userInputValue) {
+        return;
+      }
+
+      askButton.disabled = true;
+
+      fetch('/process', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ user_input: userInputValue })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.body.style.backgroundImage = `url(${data.background})`;
+        document.getElementById('aiText').innerText = data.ai_text;
+        const audioPlayer = document.getElementById('audioPlayer');
+        audioPlayer.src = data.audio;
+        audioPlayer.style.display = 'block';
+        audioPlayer.play();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        userInputField.value = "";
+        askButton.disabled = false;
+        userInputField.focus();
+      });
+    }
+
+    document.getElementById('askButton').addEventListener('click', sendRequest);
+
+    document.getElementById('userInput').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        sendRequest();
+      }
+    });
+  </script>
+
+</body>
+</html>

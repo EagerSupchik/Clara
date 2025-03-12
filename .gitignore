@@ -1,0 +1,6 @@
+/.env
+/assets
+/neurosama_prompt.txt
+/prompt.txt
+/venv
+/__pycache__
