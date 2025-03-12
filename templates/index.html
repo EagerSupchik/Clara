@@ -49,11 +49,24 @@
       font-size: 16px;
       cursor: pointer;
     }
+    #voiceToggleContainer {
+      margin-bottom: 20px;
+      color: #fff;
+      background-color: rgba(0,0,0,0.5);
+      padding: 5px;
+      border-radius: 5px;
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
 
   <div id="bottomContainer">
+    <div id="voiceToggleContainer">
+      <label>
+        <input type="checkbox" id="voiceToggle"> On/Off Microphone
+      </label>
+    </div>
     <div id="aiText">Clara is waiting for your question</div>
     <div id="userInputContainer">
       <input type="text" id="userInput" placeholder="Your input..." />
@@ -64,6 +77,29 @@
   <audio id="audioPlayer" src="" style="display:none;"></audio>
 
   <script>
+    let voiceActive = false;
+    let isProcessing = false;
+    const voiceToggle = document.getElementById('voiceToggle');
+
+    function startVoiceRecognition() {
+      fetch('/listen')
+      .then(response => response.json())
+      .then(data => {
+        if (data.transcript && data.transcript.trim() !== "") {
+          document.getElementById('userInput').value = data.transcript;
+          sendRequest();
+        }
+      })
+      .catch(error => {
+        console.error('Voice Capture Error:', error);
+      })
+      .finally(() => {
+        if (voiceActive && isProcessing == false) {
+          startVoiceRecognition();
+        }
+      });
+    }
+
     function sendRequest() {
       const userInputField = document.getElementById('userInput');
       const askButton = document.getElementById('askButton');
@@ -74,6 +110,7 @@
       }
 
       askButton.disabled = true;
+      isProcessing = true;
 
       fetch('/process', {
         method: 'POST',
@@ -97,15 +134,25 @@
       .finally(() => {
         userInputField.value = "";
         askButton.disabled = false;
+        isProcessing = false;
+        startVoiceRecognition();
         userInputField.focus();
       });
     }
 
     document.getElementById('askButton').addEventListener('click', sendRequest);
-
     document.getElementById('userInput').addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {
         sendRequest();
+      }
+    });
+
+    voiceToggle.addEventListener('change', function() {
+      if (this.checked) {
+        voiceActive = true;
+        startVoiceRecognition();
+      } else {
+        voiceActive = false;
       }
     });
   </script>
