@@ -2,7 +2,7 @@
 This is web app of AI girlfriend. If you are lonely this project for you.
 
 
-## How to run this bullshit
+## How to run this
 1. Install by doing:
    ```
    git clone https://github.com/EagerSupchik/Clara.git
